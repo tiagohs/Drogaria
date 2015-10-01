@@ -6,19 +6,18 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import br.com.drogaria.domain.Fabricante;
+import br.com.drogaria.domain.Funcionario;
 import br.com.drogaria.util.HibernateUtil;
 
-public class FabricanteDAO {
+public class FuncionarioDAO {
 	
-	public void salvar(Fabricante fabricante) {
-		//Aqui estou abrindo a sessão
+	public void salvar(Funcionario funcionario) {
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		Transaction transacao = null;
 		
 		try {
 			transacao = sessao.beginTransaction();
-			sessao.save(fabricante);
+			sessao.save(funcionario);
 			transacao.commit();
 		} catch (RuntimeException ex) {
 			if (transacao != null) transacao.rollback();
@@ -29,47 +28,47 @@ public class FabricanteDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Fabricante> listar() {
+	public List<Funcionario> listar() {
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
-		List<Fabricante> fabricantes = null;
+		List<Funcionario> funcionario = null;
 		
 		try {
-			Query consulta = sessao.getNamedQuery("Fabricante.listar");
-			fabricantes = consulta.list();
+			Query consulta = sessao.getNamedQuery("Funcionario.listar");
+			funcionario = consulta.list();
 		} catch (RuntimeException ex) {
 			throw ex;
 		} finally {
 			sessao.close();
 		}
 		
-		return fabricantes;
+		return funcionario;
 	}
 	
-	public Fabricante buscar(Long id) {
+	public Funcionario buscar(Long id) {
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
-		Fabricante fabricante = null;
+		Funcionario funcionario = null;
 		
 		try {
-			Query consulta = sessao.getNamedQuery("Fabricante.buscarPorID");
+			Query consulta = sessao.getNamedQuery("Funcionario.buscarPorID");
 			consulta.setLong("id", id);
 			
-			fabricante = (Fabricante) consulta.uniqueResult();
+			funcionario = (Funcionario) consulta.uniqueResult();
 		} catch (RuntimeException ex) {
 			throw ex;
 		} finally {
 			sessao.close();
 		}
 		
-		return fabricante;
+		return funcionario;
 	}
 	
-	public void excluir(Fabricante fabricante) {
+	public void excluir(Funcionario funcionario) {
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		Transaction transacao = null;
 		
 		try {
 			transacao = sessao.beginTransaction();
-			sessao.delete(fabricante);
+			sessao.delete(funcionario);
 			transacao.commit();
 		} catch (RuntimeException ex) {
 			if (transacao != null) transacao.rollback();
@@ -79,14 +78,13 @@ public class FabricanteDAO {
 		}
 	}
 	
-	public void editar(Fabricante fabricante) {
-		//Aqui estou abrindo a sessão
+	public void editar(Funcionario funcionario) {
 		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		Transaction transacao = null;
 		
 		try {
 			transacao = sessao.beginTransaction();
-			sessao.update(fabricante);
+			sessao.update(funcionario);
 			transacao.commit();
 		} catch (RuntimeException ex) {
 			if (transacao != null) transacao.rollback();

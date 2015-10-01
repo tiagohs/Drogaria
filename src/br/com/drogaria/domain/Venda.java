@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,7 +21,7 @@ public class Venda {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="id_vendas")
-	private long id;
+	private Long id;
 	
 	@Temporal(value=TemporalType.TIMESTAMP)
 	@Column(name="horario", nullable=false)
@@ -35,12 +34,21 @@ public class Venda {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="funcionario_id_funcionario", referencedColumnName="id_funcionario", nullable = false)
 	private Funcionario funcionario;
+	
+	public Venda() {
+	}
+	
+	public Venda(Calendar horario, BigDecimal valor_total, Funcionario funcionario) {
+		this.horario = horario;
+		this.valor_total = valor_total;
+		this.funcionario = funcionario;
+	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

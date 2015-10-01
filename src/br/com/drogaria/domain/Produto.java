@@ -34,6 +34,16 @@ public class Produto {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fabricante_id_fabricante", referencedColumnName = "id_fabricante", nullable = false)
 	private Fabricante fabricante;
+	
+	public Produto() {
+	}
+	
+	public Produto(String descricao, BigDecimal preco, Integer quantidade, Fabricante fabricante) {
+		this.descricao = descricao;
+		this.preco = preco;
+		this.quantidade = quantidade;
+		this.fabricante = fabricante;
+	}
 
 	public Long getId() {
 		return id;

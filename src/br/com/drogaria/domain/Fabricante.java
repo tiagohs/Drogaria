@@ -23,6 +23,13 @@ public class Fabricante {
 
 	@Column(name = "fab_descricao", length = 50, nullable = false)
 	private String descricao;
+	
+	public Fabricante() {
+	}
+	
+	public Fabricante(String descricao) {
+		this.descricao = descricao;
+	}
 
 	public Long getId() {
 		return id;

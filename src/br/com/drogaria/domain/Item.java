@@ -33,6 +33,16 @@ public class Item {
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="produtos_id_produto", referencedColumnName="id_produto", nullable=false)
 	private Produto produto;
+	
+	public Item() {
+	}
+	
+	public Item(Integer quantidade, BigDecimal valor_parcial, Venda venda, Produto produto) {
+		this.quantidade = quantidade;
+		this.valor_parcial = valor_parcial;
+		this.venda = venda;
+		this.produto = produto;
+	}
 
 	public Long getId() {
 		return id;
