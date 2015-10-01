@@ -10,10 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "itens")
+@NamedQueries({
+	@NamedQuery(name="Item.listar", query="SELECT item FROM Item item"),
+	@NamedQuery(name="Item.buscarPorID", query="SELECT item FROM Item item WHERE id = :id")
+})
 public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -83,5 +89,33 @@ public class Item {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+
+	@Override
+	public String toString() {
+		return "Id: " + id + "\nQuantidade: " + quantidade + "\nValor Parcial: " + valor_parcial + "\n\nVenda: " + venda
+				+ "\n\nProduto: " + produto + "\n";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
+		result = prime * result + ((quantidade == null) ? 0 : quantidade.hashCode());
+		result = prime * result + ((valor_parcial == null) ? 0 : valor_parcial.hashCode());
+		result = prime * result + ((venda == null) ? 0 : venda.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Item) {
+			Item item = (Item)obj;
+			return (this.getId().equals(item.getId()));
+		}
+		return false;
+	}
+	
 	
 }
