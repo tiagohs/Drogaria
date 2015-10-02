@@ -2,7 +2,7 @@
 
 <h1>Projeto de Aprendizagem Drogaria</h1>
 
-<p>Projeto Simples de uma Drogaria usando JAVA WEB + Hibernate & MySQL + JSF</p>
+<p>Projeto Simples de uma Drogaria usando JAVA WEB + Hibernate & MySQL + JSF + PrimeFaces</p>
 <br/>
 <p>Código e Créditos de Sérgio Roberto Delfino: <a href="https://www.youtube.com/playlist?list=PL_GwGUsBlNydMdSOh8nYYRwD4tvPX1EIV">Link dos Vídeos</a></p>
 <br/>
