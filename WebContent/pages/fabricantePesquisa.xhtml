@@ -8,24 +8,35 @@
 
 <ui:composition template="/templates/modeloGeral.xhtml">
 	<ui:define name="conteudo">
+		<f:event listener="#{fabricanteBean.carregarPesquisa}"
+			type="preRenderView" />
 		<h:form>
 			<p:toolbar>
 				<f:facet name="left">
 					<h:outputText value="Fabricantes" />
 				</f:facet>
 			</p:toolbar>
-			
+
 			<h:panelGrid columns="4">
-				<p:outputLabel value="Descrição: "/>
-				<p:inputText maxlength="50" size="30" />
-				<p:commandButton value="Buscar"/>
-				<p:commandButton value="Novo" action="/pages/fabricanteCadastro.xhtml?faces-redirect=true"/>
+
 			</h:panelGrid>
-			
-			<p:dataTable emptyMessage="Nenhum Fabricante Encontrado">
+
+			<p:dataTable emptyMessage="Nenhum Fabricante Encontrado"
+				value="#{fabricanteBean.listaFabricantes}"
+				filteredValue="#{fabricanteBean.listaFabricantesFiltrados}"
+				var="fabricante" rows="10" paginator="true">
+
+				<f:facet name="footer">
+					<p:commandButton value="Novo"
+						action="/pages/fabricanteCadastro.xhtml?faces-redirect=true" />
+				</f:facet>
+
 				<p:column headerText="Código">
+					<h:outputText value="#{fabricante.id}" />
 				</p:column>
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" filterBy="#{fabricante.descricao}"
+					sortBy="#{fabricante.descricao}">
+					<h:outputText value="#{fabricante.descricao}" />
 				</p:column>
 				<p:column headerText="Opção">
 				</p:column>
