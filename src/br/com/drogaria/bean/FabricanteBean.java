@@ -17,7 +17,7 @@ public class FabricanteBean {
 	private List<Fabricante> listaFabricantesFiltrados;
 
 	public Fabricante getFabricante() {
-		return fabricante == null ? fabricante = new Fabricante() : fabricante;
+		return fabricante;
 	}
 
 	public List<Fabricante> getListaFabricantes() {
@@ -66,7 +66,48 @@ public class FabricanteBean {
 			FacesUtil.adicionarMensagemErro("Erro ao Listar os Fabricantes: " + ex.getMessage());
 		}
 	}
+	
+	public void carregarCadastro() {
+		String valor = null;
+		
+		try {
+			valor = FacesUtil.getParametro("fabId");
+			
+			if (valor != null) {
+				Long fabricanteID = Long.parseLong(valor);
+				
+				FabricanteDAO dao = new FabricanteDAO();
+				fabricante = dao.buscar(fabricanteID);
+			} else {
+				fabricante = new Fabricante();
+			}
+		} catch (RuntimeException ex) {
+			FacesUtil.adicionarMensagemErro("Erro ao Obter os Dados do Fabricante: " + ex.getMessage());
+		}
+	}
+	
+	public void excluir() {
+		try {
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricanteDAO.excluir(fabricante);
 
+			FacesUtil.adicionarMensagemInfo("Fabricante Removido com Sucesso");
+		} catch (RuntimeException ex) {
+			FacesUtil.adicionarMensagemErro("Erro ao tentar remover um fabricante: " + ex.getMessage());
+		}
+	}
+	
+	public void editar() {
+		try {
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricanteDAO.editar(fabricante);
+
+			FacesUtil.adicionarMensagemInfo("Fabricante Editado com Sucesso");
+		} catch (RuntimeException ex) {
+			FacesUtil.adicionarMensagemErro("Erro ao tentar editar um fabricante: " + ex.getMessage());
+		}
+	}
+	
 	private void novoFabricante() {
 		fabricante = new Fabricante();
 	}
