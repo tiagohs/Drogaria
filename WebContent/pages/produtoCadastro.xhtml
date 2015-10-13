@@ -7,7 +7,83 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="prodAcao" value="#{produtoBean.acao}" />
+			<f:viewParam name="prodId" value="#{produtoBean.id}" />
+		</f:metadata>
+		<f:event listener="#{produtoBean.carregarCadastro}"
+			type="preRenderView" />
+	</ui:define>
+
 	<ui:define name="conteudo">
+		<h:form id="frmProdCad">
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value="Cadastrar Produto" />
+				</f:facet>
+			</p:toolbar>
+
+			<h:panelGrid columns="2" id="pnlProdCadastro">
+				<p:outputLabel value="Código: " />
+				<p:inputText size="40" readonly="true"
+					value="#{produtoBean.produto.id}" />
+
+				<p:outputLabel value="Descrição " />
+				<p:inputText maxlength="100" size="40"
+					value="#{produtoBean.produto.descricao}"
+					readonly="#{produtoBean.acao == 'Excluir'}">
+					<f:validateBean />
+					<!-- Verifica se tem algum Framework de Validação -->
+				</p:inputText>
+
+				<p:outputLabel value="Preço " />
+				<p:inputText size="20" value="#{produtoBean.produto.preco}"
+					readonly="#{produtoBean.acao == 'Excluir'}">
+					<f:validateBean />
+					<!-- Verifica se tem algum Framework de Validação -->
+				</p:inputText>
+
+				<p:outputLabel value="Quantidade " />
+				<p:inputText size="20" value="#{produtoBean.produto.quantidade}"
+					readonly="#{produtoBean.acao == 'Excluir'}">
+					<f:validateBean />
+					<!-- Verifica se tem algum Framework de Validação -->
+				</p:inputText>
+
+				<p:outputLabel value="Fabricante " />
+				<p:selectOneMenu value="#{produtoBean.produto.fabricante}"
+					converter="fabricanteConverter">
+					<f:selectItem itemValue="" itemLabel="Selecione um Fabricante" />
+					<f:selectItems value="#{produtoBean.listaFabricantes}" var="fabricante"
+						itemLabel="#{fabricante.descricao}" itemValue="#{fabricante}" />
+					<f:validateBean />
+					<!-- Verifica se tem algum Framework de Validação -->
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+				<p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
+					update=":msgGlobal :frmProdCad:pnlProdCadastro"
+					rendered="#{produtoBean.acao == 'Novo'}" />
+
+				<p:commandButton value="Salvar"
+					actionListener="#{produtoBean.salvar}"
+					update=":msgGlobal :frmProdCad:pnlProdCadastro"
+					rendered="#{produtoBean.acao == 'Novo'}" />
+
+				<p:commandButton value="Editar"
+					actionListener="#{produtoBean.editar}" update=":msgGlobal"
+					rendered="#{produtoBean.acao == 'Editar'}" />
+
+				<p:commandButton value="Excluir"
+					actionListener="#{produtoBean.excluir}" update=":msgGlobal"
+					rendered="#{produtoBean.acao == 'Excluir'}" />
+
+				<p:button value="Voltar"
+					outcome="/pages/produtoPesquisa.xhtml?faces-redirect=true" />
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>
 </html>

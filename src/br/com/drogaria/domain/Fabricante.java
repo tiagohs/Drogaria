@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "fabricantes")
@@ -20,7 +23,9 @@ public class Fabricante {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_fabricante")
 	private Long id;
-
+	
+	@NotEmpty(message = "O Campo Descrição é Obrigatório.")
+	@Size(max = 50, min = 5, message = "Tamanho Inválido para o Campo Descrição (5 - 50).")
 	@Column(name = "fab_descricao", length = 50, nullable = false)
 	private String descricao;
 	
@@ -56,18 +61,24 @@ public class Fabricante {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Fabricante) {
-			Fabricante fabricante = (Fabricante)obj;
-			return (this.getId().equals(fabricante.getId()));
-		}
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fabricante other = (Fabricante) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
-	
 }

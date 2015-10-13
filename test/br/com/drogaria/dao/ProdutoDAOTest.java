@@ -1,4 +1,4 @@
-package br.com.drogaria.testes;
+package br.com.drogaria.dao;
 
 import java.math.BigDecimal;
 import java.util.List;

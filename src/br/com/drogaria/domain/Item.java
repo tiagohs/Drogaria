@@ -101,20 +101,24 @@ public class Item {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
-		result = prime * result + ((quantidade == null) ? 0 : quantidade.hashCode());
-		result = prime * result + ((valor_parcial == null) ? 0 : valor_parcial.hashCode());
-		result = prime * result + ((venda == null) ? 0 : venda.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Item) {
-			Item item = (Item)obj;
-			return (this.getId().equals(item.getId()));
-		}
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 	

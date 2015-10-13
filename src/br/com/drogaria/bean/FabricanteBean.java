@@ -15,7 +15,9 @@ public class FabricanteBean {
 	private Fabricante fabricante;
 	private List<Fabricante> listaFabricantes;
 	private List<Fabricante> listaFabricantesFiltrados;
-
+	private String acao;
+	private Long id;
+	
 	public Fabricante getFabricante() {
 		return fabricante;
 	}
@@ -39,19 +41,36 @@ public class FabricanteBean {
 	public void setFabricante(Fabricante fabricante) {
 		this.fabricante = fabricante;
 	}
-
+	
+	public String getAcao() {
+		return acao;
+	}
+	
+	public void setAcao(String acao) {
+		this.acao = acao;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	public void novo() {
-		novoFabricante();
+		fabricante = new Fabricante();
 	}
 
 	public void salvar() {
 		try {
 			FabricanteDAO fabricanteDAO = new FabricanteDAO();
 			fabricanteDAO.salvar(fabricante);
-			novoFabricante();
+			novo();
 
 			FacesUtil.adicionarMensagemInfo("Fabricante Salvo com Sucesso");
 		} catch (RuntimeException ex) {
+			ex.printStackTrace();
 			FacesUtil.adicionarMensagemErro("Erro ao tentar incluir um fabricante: " + ex.getMessage());
 		}
 	}
@@ -68,16 +87,10 @@ public class FabricanteBean {
 	}
 	
 	public void carregarCadastro() {
-		String valor = null;
-		
 		try {
-			valor = FacesUtil.getParametro("fabId");
-			
-			if (valor != null) {
-				Long fabricanteID = Long.parseLong(valor);
-				
+			if (id != null) {
 				FabricanteDAO dao = new FabricanteDAO();
-				fabricante = dao.buscar(fabricanteID);
+				fabricante = dao.buscar(id);
 			} else {
 				fabricante = new Fabricante();
 			}
@@ -106,9 +119,5 @@ public class FabricanteBean {
 		} catch (RuntimeException ex) {
 			FacesUtil.adicionarMensagemErro("Erro ao tentar editar um fabricante: " + ex.getMessage());
 		}
-	}
-	
-	private void novoFabricante() {
-		fabricante = new Fabricante();
 	}
 }

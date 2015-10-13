@@ -13,6 +13,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "produtos")
@@ -25,16 +33,25 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_produto")
 	private Long id;
-
+	
+	@NotEmpty(message = "Campo Descrição é Obrigatório.")
+	@Size(max = 100, min = 5, message = "Tamanho Inválido para o Campo Nome (5 - 100).")
 	@Column(name = "descricao", length = 100, nullable = false)
 	private String descricao;
-
+	
+	@NotNull(message = "Campo Preço é Obrigatório.")
+	@DecimalMin(message = "Informe um Valor maior ou Igual a 0.", value = "0.00")
+	@DecimalMax(message = "Informe um Valor menor ou Igual a 99999.99.", value = "99999.99")
 	@Column(name = "preco", precision = 7, scale = 2, nullable = false)
 	private BigDecimal preco;
-
+	
+	@NotNull(message = "Campo Quantidade é Obrigatório.")
+	@Min(message = "Informe um Valor maior ou Igual a 0.", value = 0L)
+	@Max(message = "Informe um Valor menor ou Igual a 9999.", value = 9999L)
 	@Column(name = "quantidade", nullable = false)
 	private Integer quantidade;
-
+	
+	@NotNull(message = "Campo Fabricante é Obrigatório.")
 	// Ou seja, muitos produtos pertencem a um fabricante
 	//Com EAGER, os Fabricantes já devem ser carregados juntos. Enquanto LAZER só seriam carregados depois.
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -101,21 +118,25 @@ public class Produto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((fabricante == null) ? 0 : fabricante.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((preco == null) ? 0 : preco.hashCode());
-		result = prime * result + ((quantidade == null) ? 0 : quantidade.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Produto) {
-			Produto produto = (Produto)obj;
-			return (this.getId().equals(produto.getId()));
-		}
-		return false;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }

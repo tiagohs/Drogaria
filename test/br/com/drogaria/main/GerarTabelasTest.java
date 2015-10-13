@@ -1,4 +1,4 @@
-package br.com.drogaria.testes;
+package br.com.drogaria.main;
 
 import org.junit.Test;
 
