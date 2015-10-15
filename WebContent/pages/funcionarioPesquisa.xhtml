@@ -21,6 +21,8 @@
 				</f:facet>
 			</p:toolbar>
 			
+			<p:separator />
+			
 			<p:dataTable emptyMessage="Nenhum Funcionario Encontrado"
 				value="#{funcionarioBean.listaFuncionarios}"
 				filteredValue="#{funcionarioBean.listaFuncionariosFiltrados}"
@@ -33,14 +35,14 @@
 					</p:button>
 				</f:facet>
 				
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 5%">
 					<h:outputText value="#{funcionario.id}" />
 				</p:column>
 				<p:column headerText="Nome" filterBy="#{funcionario.nome}"
 					sortBy="#{funcinoario.nome}">
 					<h:outputText value="#{funcionario.nome}" />
 				</p:column>
-				<p:column headerText="CPF" filterBy="#{funcionario.cpf}"
+				<p:column headerText="CPF" style="width: 15%" filterBy="#{funcionario.cpf}"
 					sortBy="#{funcinoario.cpf}">
 					<h:outputText value="#{funcionario.cpf}" />
 				</p:column>
@@ -48,7 +50,7 @@
 					sortBy="#{funcinoario.funcao}">
 					<h:outputText value="#{funcionario.funcao}" />
 				</p:column>
-				<p:column headerText="Opção">
+				<p:column headerText="Opção" style="width: 15%">
 					<p:button value="Editar"
 						outcome="/pages/funcionarioCadastro.xhtml?faces-redirect=true">
 						<f:param name="funcId" value="#{funcionario.id}" />

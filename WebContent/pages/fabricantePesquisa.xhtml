@@ -18,14 +18,12 @@
 		<h:form>
 			<p:toolbar>
 				<f:facet name="left">
-					<h:outputText value="Produtos" />
+					<h:outputText value="Fabricantes" />
 				</f:facet>
 			</p:toolbar>
 
-			<h:panelGrid columns="4">
-
-			</h:panelGrid>
-
+			<p:separator />
+			
 			<p:dataTable emptyMessage="Nenhum Fabricante Encontrado"
 				value="#{fabricanteBean.listaFabricantes}"
 				filteredValue="#{fabricanteBean.listaFabricantesFiltrados}"
@@ -38,23 +36,23 @@
 					</p:button>
 				</f:facet>
 
-				<p:column headerText="Código">
-					<h:outputText value="#{produto.id}" />
+				<p:column headerText="Código" style="width: 5%">
+					<h:outputText value="#{fabricante.id}" />
 				</p:column>
-				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
-					sortBy="#{produto.descricao}">
-					<h:outputText value="#{produto.descricao}" />
+				<p:column headerText="Descrição" style="width: 30%" filterBy="#{fabricante.descricao}"
+					sortBy="#{fabricante.descricao}">
+					<h:outputText value="#{fabricante.descricao}" />
 				</p:column>
-				<p:column headerText="Opção">
+				<p:column headerText="Opção" style="width: 15%">
 					<p:button value="Editar"
-						outcome="/pages/produtoCadastro.xhtml?faces-redirect=true">
-						<f:param name="prodId" value="#{produto.id}" />
-						<f:param name="prodAcao" value="Editar" />
+						outcome="/pages/fabricanteCadastro.xhtml?faces-redirect=true">
+						<f:param name="fabId" value="#{fabricante.id}" />
+						<f:param name="fabAcao" value="Editar" />
 					</p:button>
 					<p:button value="Excluir"
 						outcome="/pages/fabricanteCadastro.xhtml?faces-redirect=true">
-						<f:param name="prodId" value="#{produto.id}" />
-						<f:param name="prodAcao" value="Excluir" />
+						<f:param name="fabId" value="#{fabricanteid}" />
+						<f:param name="fabAcao" value="Excluir" />
 					</p:button>
 				</p:column>
 			</p:dataTable>

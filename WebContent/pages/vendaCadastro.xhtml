@@ -7,26 +7,25 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <ui:composition template="/templates/modeloGeral.xhtml">
-	<ui:define name="metadata">
+	<ui:define name="metadata" />
 		<f:metadata>
-			<f:event listener="#{produtoBean.carregarPesquisa}"
+			<f:event listener="#{vendaBean.carregarProdutos}"
 				type="preRenderView" />
 		</f:metadata>
-	</ui:define>
 	<ui:define name="conteudo">
 		<h:form>
 			<p:toolbar>
 				<f:facet name="left">
-					<h:outputText value="Produtos" />
+					<h:outputText value="Vendas" />
 				</f:facet>
 			</p:toolbar>
-
+			
 			<p:separator />
 			
-			<p:dataTable emptyMessage="Nenhum Produto Encontrado"
-				value="#{produtoBean.listaProduto}"
-				filteredValue="#{produtoBean.listaProdutoFiltrados}" var="produto"
-				rows="10" paginator="true">
+			<p:dataTable emptyMessage="Nenhum Registro Encontrado"
+				value="#{vendaBean.listaProduto}"
+				filteredValue="#{vendaBean.listaProdutoFiltrados}" var="produto"
+				rows="4" paginator="true">
 
 				<f:facet name="footer">
 					<p:button value="Novo"
@@ -59,16 +58,7 @@
 				</p:column>
 
 				<p:column headerText="Opção" style="width: 15%">
-					<p:button value="Editar"
-						outcome="/pages/produtoCadastro.xhtml?faces-redirect=true">
-						<f:param name="prodId" value="#{produto.id}" />
-						<f:param name="prodAcao" value="Editar" />
-					</p:button>
-					<p:button value="Excluir"
-						outcome="/pages/produtoCadastro.xhtml?faces-redirect=true">
-						<f:param name="prodId" value="#{produto.id}" />
-						<f:param name="prodAcao" value="Excluir" />
-					</p:button>
+					<p:button value="Adicionar" />
 				</p:column>
 			</p:dataTable>
 		</h:form>
