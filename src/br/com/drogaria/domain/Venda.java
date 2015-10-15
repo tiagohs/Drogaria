@@ -43,6 +43,8 @@ public class Venda {
 	private Funcionario funcionario;
 	
 	public Venda() {
+		this.valor_total = new BigDecimal(0.00);
+		this.funcionario = new Funcionario();
 	}
 	
 	public Venda(Date horario, BigDecimal valor_total, Funcionario funcionario) {
