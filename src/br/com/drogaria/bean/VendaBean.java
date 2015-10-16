@@ -77,11 +77,13 @@ public class VendaBean {
 		} else {
 			Item itemTemp = listaItem.get(posicao);
 			item.setQuantidade(itemTemp.getQuantidade() + 1);
+			System.out.println(item.getQuantidade());
 			item.setValor_parcial(produto.getPreco().multiply(new BigDecimal(item.getQuantidade())));
 			listaItem.set(posicao, item);
 		}
-		
-		vendaCadastro.setValor_total(vendaCadastro.getValor_total().add(item.getValor_parcial()));
+
+		vendaCadastro.setValor_total(vendaCadastro.getValor_total().add(item.getProduto().getPreco()));
+
 	}
 	
 	public int posicaoProduto(Produto produto) {
@@ -105,7 +107,6 @@ public class VendaBean {
 				itemTemp.setQuantidade(itemTemp.getQuantidade() - 1);
 				itemTemp.setValor_parcial(item.getValor_parcial().subtract(item.getProduto().getPreco()));
 				listaItem.set(posicao, itemTemp);
-				vendaCadastro.setValor_total(vendaCadastro.getValor_total().subtract(itemTemp.getProduto().getPreco()));
 			} else {
 				listaItem.remove(posicao);
 			}

@@ -80,15 +80,38 @@
 				</p:column>
 
 				<p:column headerText="Opção" style="width: 15%">
-					<p:commandButton value="Remover" actionListener="#{vendaBean.remover(item)}"
-						update=":frmVenda:tblItens :frmVenda:txtVendaTotal"  />
+					<p:commandButton value="Remover"
+						actionListener="#{vendaBean.remover(item)}"
+						update=":frmVenda:tblItens :frmVenda:txtVendaTotal" />
 				</p:column>
 			</p:dataTable>
-			
+
 			<p:separator />
-			
-			<h:outputText id="txtVendaTotal" value="Valor Total: #{vendaBean.vendaCadastro.valor_total}"/>
+
+			<p:panelGrid columns="4">
+				<h:outputText id="txtVendaTotal"
+					value="Valor Total: #{vendaBean.vendaCadastro.valor_total}" />
+				<p:commandButton value="Finalizar Venda" onclick="PF('wvDlgFinVenda').show()"/>
+			</p:panelGrid>
 		</h:form>
+
+
+		<p:dialog closable="true" draggable="true" modal="true"
+			resizable="false" header="Dados da Venda" widgetVar="wvDlgFinVenda" appendTo="@(body)">
+			<h:form>
+				<p:panelGrid columns="1" >
+					<h:outputText value="Horário: " />
+					<h:outputText value="Funcionário: " />
+					<h:outputText value="Valor Total" />
+				</p:panelGrid>
+
+				<p:panelGrid columns="2">
+					<h:commandButton value="Salvar" />
+					<h:commandButton value="Voltar" onclick="PF('wvDlgFinVenda').hide();"/>
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+
 	</ui:define>
 </ui:composition>
 </html>
